@@ -1,0 +1,17 @@
+{
+    "name": "melfo01/declaration-impot",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.4",
+        "symfony/http-client": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Melfo01\\DeclarationImpot\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.1"
+    }
+}
