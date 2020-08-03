@@ -27,18 +27,18 @@ class QontoBankHttpClient implements BankHttpClientInterface
     }
 
     /** @todo - We need to manage paginatation */
-    public function getTransactions(DateTimeInterface $startDate, DateTimeInterface $endDate): array
+    public function getTransactions(?DateTimeInterface $startDate, ?DateTimeInterface $endDate): array
     {
+        $parameters = [
+            'slug' => $this->slug,
+            'iban' => $this->iban,
+        ];
+        if ($startDate) { $parameters['settled_at_from'] = $startDate->format(DATE_ISO8601); }
+        if ($endDate) { $parameters['settled_at_to'] = $endDate->format(DATE_ISO8601); }
+
         $jsonResponse = $this->client->request(
             'GET',
-            sprintf(
-                "%s?slug=%s&iban=%s&settled_at_from=%s&settled_at_to=%s",
-                'http://thirdparty.qonto.eu/v2/transactions',
-                $this->slug,
-                $this->iban,
-                urlencode($startDate->format(DATE_ISO8601)),
-                urlencode($endDate->format(DATE_ISO8601))
-            )
+            'http://thirdparty.qonto.eu/v2/transactions?' . http_build_query($parameters)
         )->getContent();
 
         $response = json_decode($jsonResponse, true);

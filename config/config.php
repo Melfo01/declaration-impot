@@ -12,6 +12,7 @@ $bankConstructorParameters = [
 
 /**
  * This soft require a month and a year to return your declaration information
+ * Variables must be null or an instance DateTimeInterface
  */
-$month = 'July';
-$year = 2020;
+$startDate = new \DateTime(sprintf('first day of %s %s 00:00:00', 'January', 2020));
+$endDate = null;

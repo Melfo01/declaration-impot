@@ -11,12 +11,9 @@ class DeclarationHandler
         $this->bankHttpClient = $bankHttpClient;
     }
 
-    public function __invoke(string $month, int $year)
+    public function __invoke(?\DateTimeInterface $startDate, ?\DateTimeInterface $endDate)
     {
-        $transactions = $this->bankHttpClient->getTransactions(
-            new \DateTime(sprintf('first day of %s %s 00:00:00', $month, $year)),
-            new \DateTime(sprintf('last day of %s %s 23:59:59', $month, $year))
-        );
+        $transactions = $this->bankHttpClient->getTransactions($startDate, $endDate);
 
         $montantImposableHT = $tvaRecolte = $tvaDeductible = 0;
         foreach ($transactions as $transaction) {
