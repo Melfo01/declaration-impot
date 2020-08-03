@@ -15,5 +15,5 @@ $declarationHandler = new DeclarationHandler(
     new QontoBankHttpClient(...$bankConstructorParameters)
 );
 
-$declarationHandler($month, $year);
+$declarationHandler($startDate, $endDate);
 
